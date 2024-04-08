@@ -2,7 +2,7 @@ const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
 const schema = require("./graphql/schema");
-const resolvers = require("./graphql/Resolvers");
+const resolvers = require("./graphql/resolvers");
 const cors = require('cors');
 const bodyParser = require("body-parser");
 require('dotenv').config();
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use(
-  "/graphql",
+  "/graphql", 
   graphqlHTTP({
     schema,
     rootValue: resolvers,
