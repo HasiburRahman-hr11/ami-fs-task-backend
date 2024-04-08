@@ -1,6 +1,6 @@
 const { buildSchema } = require("graphql");
 
-const Schema = buildSchema(`
+const schema = buildSchema(`
   type People {
     id: ID!
     firstName: String!
@@ -17,4 +17,4 @@ const Schema = buildSchema(`
   }
 `);
 
-module.exports = Schema;
+module.exports = schema;
