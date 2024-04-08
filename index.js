@@ -5,6 +5,7 @@ const schema = require("./graphql/schema");
 const resolvers = require("./graphql/Resolvers");
 const cors = require('cors');
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
 const app = express();
 
@@ -30,8 +31,8 @@ mongoose
   .then(() => {
     console.log("Database Connected Successfully!");
 
-    app.listen(PORT, () => {
-      console.log(`Server is running at http://localhost:${PORT}`);
+    app.listen(process.env.PORT || PORT, () => {
+      console.log(`Server is running at http://localhost:${process.env.PORT || PORT}`);
     });
   })
   .catch((err) => {
