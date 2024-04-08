@@ -17,4 +17,4 @@ const Schema = buildSchema(`
   }
 `);
 
-module.exports = schema;
+module.exports = Schema;
