@@ -1,40 +1,34 @@
 const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
-const schema = require("./graphql/schema");
-const resolvers = require("./graphql/resolvers");
-const cors = require('cors');
-const bodyParser = require("body-parser");
-require('dotenv').config();
+const cors = require("cors");
+require("dotenv").config();
+
+const userRoutes = require("./routes/userRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 app.use(cors());
-app.use(bodyParser.json());
 
-app.use(
-  "/graphql", 
-  graphqlHTTP({
-    schema,
-    rootValue: resolvers,
-    graphiql: true,
-  })
-);
+// Routes
+app.use(userRoutes);
+app.use(orderRoutes);
 
-// Connect to MongoDB
-const PORT = 8080;
 
+const PORT = process.env.PORT || 8000;
 mongoose
   .connect(
     `mongodb+srv://hrhasib:hrhasib11@cluster0.xwrudax.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
   )
   .then(() => {
-    console.log("Database Connected Successfully!");
-
-    app.listen(process.env.PORT || PORT, () => {
-      console.log(`Server is running at http://localhost:${process.env.PORT || PORT}`);
+    console.log("Database Connected.");
+    app.listen(PORT, () => {
+      console.log(`Server is connected at http://localhost:${PORT}`);
     });
   })
-  .catch((err) => {
-    console.log(err);
+  .catch((error) => {
+    console.log(error);
   });
